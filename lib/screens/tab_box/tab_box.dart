@@ -30,22 +30,26 @@ class _TabBoxPageState extends State<TabBoxPage> {
           return Scaffold(
             body: screens[index],
             bottomNavigationBar: BottomNavigationBar(
+              currentIndex: index,
+              unselectedItemColor: Colors.black,
+              selectedItemColor: Colors.blue,
               onTap: (value) => BlocProvider.of<BottomNavCubit>(context)
                   .changePageIndex(value),
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.add,
-                    color: index == 0 ? Colors.black : Colors.white,
+                    size: 40,
                   ),
-                  label: "",
+                  label: "Add",
                 ),
                 BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.contact_page,
-                      color: index == 0 ? Colors.black : Colors.white,
-                    ),
-                    label: ""),
+                  icon: Icon(
+                    Icons.contact_page,
+                    size: 40,
+                  ),
+                  label: "Contacts",
+                ),
               ],
             ),
           );
