@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_contacts/bloc/add_contact_cubit/add_contact_cubit.dart';
+import 'package:user_contacts/bloc/add_contact_cubit/add_contact_state.dart';
+import 'package:user_contacts/data/local/cached_user.dart';
 import 'package:user_contacts/screens/tab_box/add_contacts/widgets/text_field.dart';
 
 TextEditingController nameController = TextEditingController();
@@ -9,35 +13,47 @@ class AddContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: const Text(
-          'Add Contact',
-          style: TextStyle(color: Colors.black, fontSize: 24),
-        ),
-      ),
-      body: Column(
-        children: [
-          TextfieldWidget(
-            word: 'Name',
-            textController: nameController,
-          ),
-          TextfieldWidget(
-            word: 'Phone number',
-            textController: phoneNumberController,
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: const Text(
-              'Add contact',
-              style: TextStyle(fontSize: 18),
+    return BlocBuilder<AddContactCubit, ContactState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            centerTitle: true,
+            title: const Text(
+              'Add Contact',
+              style: TextStyle(color: Colors.black, fontSize: 24),
             ),
-          )
-        ],
-      ),
+          ),
+          body: Column(
+            children: [
+              TextfieldWidget(
+                word: 'Name',
+                textController: nameController,
+              ),
+              TextfieldWidget(
+                word: 'Phone number',
+                textController: phoneNumberController,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  BlocProvider.of<AddContactCubit>(context)
+                      .insertContactAndUpdateDB(
+                    CachedUser(
+                      phoneNumber: phoneNumberController.text,
+                      userName: nameController.text,
+                    ),
+                  );
+                },
+                child: const Text(
+                  'Add contact',
+                  style: TextStyle(fontSize: 18),
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }

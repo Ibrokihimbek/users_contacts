@@ -34,7 +34,7 @@ class LocalDatabase {
     CREATE TABLE $userTable (
     ${CachedUsersFields.id} $idType,
     ${CachedUsersFields.userName} $textType,
-    ${CachedUsersFields.phoneNumber} $intType
+    ${CachedUsersFields.phoneNumber} $textType
     )
     ''');
   }
@@ -46,6 +46,7 @@ class LocalDatabase {
   static Future<CachedUser> insertCachedUser(CachedUser cachedUser) async {
     final db = await getInstance.database;
     final id = await db.insert(userTable, cachedUser.toJson());
+    print("object");
     return cachedUser.copyWith(id: id);
   }
 
