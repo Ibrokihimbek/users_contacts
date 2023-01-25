@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_contacts/bloc/add_contact_cubit/add_contact_cubit.dart';
-import 'package:user_contacts/bloc/add_contact_cubit/add_contact_state.dart';
+import 'package:user_contacts/bloc/contacts_bloc/contacts_bloc.dart';
+import 'package:user_contacts/bloc/get_contacts/get_contact_cubit.dart';
 import 'package:user_contacts/data/local/cached_user.dart';
 import 'package:user_contacts/screens/tab_box/add_contacts/widgets/text_field.dart';
 
@@ -13,7 +13,7 @@ class AddContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddContactCubit, ContactState>(
+    return BlocConsumer<ContactsBloc, ContactsState>(
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -37,11 +37,12 @@ class AddContactsPage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  BlocProvider.of<AddContactCubit>(context)
-                      .insertContactAndUpdateDB(
-                    CachedUser(
-                      phoneNumber: phoneNumberController.text,
-                      userName: nameController.text,
+                  BlocProvider.of<ContactsBloc>(context).add(
+                    AddContact(
+                      contact: CachedUser(
+                        phoneNumber: phoneNumberController.text,
+                        userName: nameController.text,
+                      ),
                     ),
                   );
                 },
@@ -53,6 +54,11 @@ class AddContactsPage extends StatelessWidget {
             ],
           ),
         );
+      },
+      listener: (context, state) {
+        if(state.status == ContactStatus.contactAdded||state.status == ContactStatus.contactUpdated){
+          BlocProvider.of<GetContactCubit>(context).fetchAllContacts();
+        }
       },
     );
   }

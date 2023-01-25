@@ -1,22 +1,19 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_contacts/bloc/add_contact_cubit/add_contact_state.dart';
 import 'package:user_contacts/bloc/get_contacts/get_contact_state.dart';
 import 'package:user_contacts/data/local/cached_user.dart';
 import 'package:user_contacts/data/repository/contact_repo.dart';
 
-class GetContactCubit extends Cubit<UserSingleState> {
+class GetContactCubit extends Cubit<GetContactsState> {
   final ContactRepository contactRepository;
+
   GetContactCubit({required this.contactRepository})
-      : super(const UserSingleState(cachedUser: [])) {
-    _fetchAllContacts();
-  }
+      : super(GetContactsInitial());
 
   List<CachedUser> cachedUserContact = [];
 
-  _fetchAllContacts() async {
+  fetchAllContacts() async {
+    emit(GetContactsInLoading());
     cachedUserContact = await contactRepository.getAllUsers();
-    emit(
-      state.copyWith(cachedUser: cachedUserContact as List<CachedUser>),
-    );
+    emit(GetContactsInSuccess(cachedUser: cachedUserContact));
   }
 }

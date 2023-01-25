@@ -8,19 +8,24 @@ class ContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetContactCubit, UserSingleState>(
-      builder: (context, state) {
-        return Scaffold(
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
-              title: const Text(
-                'Contact',
-                style: TextStyle(color: Colors.black, fontSize: 24),
-              ),
-            ),
-            body: ListView(
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title: const Text(
+          'Contact',
+          style: TextStyle(color: Colors.black, fontSize: 24),
+        ),
+      ),
+      body: BlocBuilder<GetContactCubit, GetContactsState>(
+        builder: (context, state) {
+          if (state is GetContactsInLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is GetContactsInSuccess) {
+            return ListView(
               children: List.generate(
                 state.cachedUser.length,
                 (index) {
@@ -31,8 +36,11 @@ class ContactsPage extends StatelessWidget {
                   );
                 },
               ),
-            ));
-      },
+            );
+          }
+          return const SizedBox();
+        },
+      ),
     );
   }
 }
