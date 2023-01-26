@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_contacts/bloc/contacts_bloc/contacts_bloc.dart';
 import 'package:user_contacts/bloc/get_contacts/get_contact_cubit.dart';
 import 'package:user_contacts/bloc/get_contacts/get_contact_state.dart';
+import 'package:user_contacts/screens/tab_box/get_contacts/edit_contact/edit_contact.dart';
 
 class ContactsPage extends StatelessWidget {
   const ContactsPage({super.key});
@@ -30,9 +32,21 @@ class ContactsPage extends StatelessWidget {
                 state.cachedUser.length,
                 (index) {
                   var item = state.cachedUser[index];
-                  return ListTile(
-                    title: Text(item.userName),
-                    subtitle: Text(item.phoneNumber),
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => EditContactPage(
+                            cachedUser: item,
+                          ),
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      title: Text(item.userName),
+                      subtitle: Text(item.phoneNumber),
+                    ),
                   );
                 },
               ),

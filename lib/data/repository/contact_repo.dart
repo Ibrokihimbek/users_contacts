@@ -21,6 +21,6 @@ class ContactRepository {
   Future<List<CachedUser>> getAllUsers() => LocalDatabase.getAllCachedUsers();
 
   /// Update user
-  Future<int> updateUser(CachedUser cachedUser) =>
+  Future<CachedUser> updateUser(CachedUser cachedUser) =>
       LocalDatabase.updateCachedUser(cachedUser);
 }

@@ -56,7 +56,10 @@ class AddContactsPage extends StatelessWidget {
         );
       },
       listener: (context, state) {
-        if(state.status == ContactStatus.contactAdded||state.status == ContactStatus.contactUpdated){
+        if (state.status == ContactStatus.contactAdded ||
+            state.status == ContactStatus.contactUpdated || 
+            state.status == ContactStatus.contactDeleted
+            ) {
           BlocProvider.of<GetContactCubit>(context).fetchAllContacts();
         }
       },
