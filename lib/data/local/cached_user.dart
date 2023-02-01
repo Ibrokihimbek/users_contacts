@@ -5,7 +5,7 @@ class CachedUsersFields {
     /// Add all fields
     id, userName, phoneNumber,
   ];
-  static const String id = "_id";
+  static const String id = "id";
   static const String userName = "user_name";
   static const String phoneNumber = "phoneNumber";
 }

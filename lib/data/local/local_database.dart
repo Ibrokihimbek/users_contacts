@@ -80,29 +80,63 @@ class LocalDatabase {
     var t = await db
         .delete(userTable, where: "${CachedUsersFields.id}=?", whereArgs: [id]);
     if (t > 0) {
+      print("DELETED");
       return t;
     } else {
+      print("DELETED");
       return -1;
     }
   }
 
-  static Future<int> updateCachedUser(CachedUser cachedUser) async {
-    Map<String, dynamic> row = {
-      CachedUsersFields.userName: cachedUser.userName,
-      CachedUsersFields.phoneNumber: cachedUser.phoneNumber,
+  static Future<CachedUser> updateCachedUser(CachedUser contactModel) async {
+    Map<String, dynamic> col = {
+      CachedUsersFields.userName: contactModel.userName,
+      CachedUsersFields.phoneNumber: contactModel.phoneNumber,
     };
 
     final db = await getInstance.database;
-    return await db.update(
+    int id = await db.update(
       userTable,
-      row,
+      col,
       where: '${CachedUsersFields.id} = ?',
-      whereArgs: [cachedUser.id],
+      whereArgs: [contactModel.id],
     );
+    return contactModel.copyWith(id: id);
   }
 
   static Future<int> deleteAllCachedUsers() async {
     final db = await getInstance.database;
+
     return await db.delete(userTable);
   }
+}
+
+class Country {
+  Country({
+    required this.capital,
+    required this.countryName,
+  });
+
+  final String countryName;
+  final String capital;
+}
+
+class Languages {
+  Languages({
+    required this.language,
+    required this.code,
+  });
+
+  final String code;
+  final String language;
+}
+
+
+//QUERY: SELECT columns FROM  countries, languages WHERE code.startWith(R) AND capital.startWith(A)
+
+class Result {
+  Result({required this.capital, required this.code});
+
+  final String code;
+  final String capital;
 }

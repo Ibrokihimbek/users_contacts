@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.user_contacts">
+    <uses-permission android:name="android.permission.SEND_SMS"/>
    <application
         android:label="user_contacts"
         android:name="${applicationName}"
