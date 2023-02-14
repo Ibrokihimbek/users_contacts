@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:local_db/local/cached_user.dart';
 import 'package:user_contacts/bloc/contacts_bloc/contacts_bloc.dart';
 import 'package:user_contacts/bloc/get_contacts/get_contact_cubit.dart';
-import 'package:user_contacts/data/local/cached_user.dart';
 import 'package:user_contacts/screens/tab_box/add_contacts/widgets/text_field.dart';
 
 class EditContactPage extends StatefulWidget {

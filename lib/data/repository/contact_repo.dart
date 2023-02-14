@@ -1,6 +1,5 @@
-import 'package:user_contacts/data/local/cached_user.dart';
-import 'package:user_contacts/data/local/local_database.dart';
-
+import 'package:local_db/local/cached_user.dart';
+import 'package:local_db/local/local_database.dart';
 class ContactRepository {
   static final ContactRepository _instance = ContactRepository._();
 

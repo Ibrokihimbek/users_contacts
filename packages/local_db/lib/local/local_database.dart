@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:user_contacts/data/local/cached_user.dart';
+
+import 'cached_user.dart';
 
 class LocalDatabase {
   static final LocalDatabase getInstance = LocalDatabase._init();

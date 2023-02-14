@@ -14,15 +14,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
- 
   cupertino_icons: ^1.0.2
-  sqflite: ^2.2.3
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5
   url_launcher: ^6.1.8
   telephony: ^0.2.0
+
+# project packages
+  local_db:
+    path: packages/local_db
 
 dev_dependencies:
   flutter_test:

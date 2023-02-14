@@ -1,4 +1,4 @@
-import 'package:user_contacts/data/local/cached_user.dart';
+import 'package:local_db/local/cached_user.dart';
 
 abstract class GetContactsState {}
 

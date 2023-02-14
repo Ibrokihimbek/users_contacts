@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:local_db/local/cached_user.dart';
 import 'package:meta/meta.dart';
-import 'package:user_contacts/data/local/cached_user.dart';
 import 'package:user_contacts/data/repository/contact_repo.dart';
 import 'package:equatable/equatable.dart';
 
